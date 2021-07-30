@@ -315,11 +315,6 @@
 		for(int i=0;i<list.size();i++) {
 			
 	%>
-	<script type="text/javascript">
-		document.getElementById("testBtn").addEventListener('click', function(){
-			alert("테스트");
-		});
-	</script>
 	<script>
 		
 		document.getElementById("replyBtn<%=i%>").addEventListener('click', function(){
