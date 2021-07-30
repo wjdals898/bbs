@@ -17,37 +17,7 @@
 <meta name="viewport" content="width=device-width", initial-scale="1" >
 <link rel="stylesheet" href="css/bootstrap.css" >
 <title>JSP 게시판 웹 사이트</title>
-<script type="text/javascript">
 
-	System.out.println("스크립트 프린트 테스트");
-	ArrayList<Reply> list=new ArrayList<Reply>();
-	ArrayList<ReReply> relist=new ArrayList<ReReply>();
-	
-	function replyUpdate(int n) {
-		for(int i=0;i<list.size();i++) {
-			if(i==n) {
-				document.getElementByClassName("reply-button%d", i).style.display='none';
-				document.getElementByClassName("reply-button%d", i).style.visibility='hidden';
-				document.getElementByClassName("fix-reply-hidden%d", i).style.display='block';
-				document.getElementByClassName("fix-reply-hidden%d", i).style.visibility='visible';
-			}
-		}
-	}
-	
-	function writeReply(n) {
-		event.preventDefault();
-		System.out.println("rereplywrite"+n);
-		for(int i=0;i<relist.size();i++) {
-			if(i==n) {
-				String rereplyID='rereplywrite'+i;
-				document.getElementById(rereplyID).style.display="";
-				document.getElementById(rereplyID).style.visibility='visible';
-				
-			}
-		}
-	}
-	
-</script>
 </head>
 
 <body>
