@@ -7,7 +7,7 @@ public class User {
 	private String userName;
 	private String userGender;
 	private String userEmail;
-	
+	private String userPhone;
 	
 	public String getUserID() {
 		return userID;
@@ -38,6 +38,12 @@ public class User {
 	}
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+	public String getUserPhone() {
+		return userPhone;
+	}
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 	
 	

@@ -44,7 +44,6 @@
 				} else {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
-					//script.println("alert('댓글을 작성했습니다.')");
 					script.println("location.href = 'view.jsp?bbsID="+request.getParameter("bbsID")+"'");
 					script.println("</script>");		
 					}

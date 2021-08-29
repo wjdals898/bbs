@@ -175,5 +175,55 @@ public class BbsDAO {
 		
 	}
 	
+	public ArrayList<Bbs> getList_desc(int pageNumber){
+		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsRecommend DESC LIMIT 10";
+		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Bbs bbs = new Bbs();
+				bbs.setBbsID(rs.getInt(1));
+				bbs.setBbsTitle(rs.getString(2));
+				bbs.setUserID(rs.getString(3));
+				bbs.setBbsDate(rs.getString(4));
+				bbs.setBbsContent(rs.getString(5));
+				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setBbsRecommend(rs.getInt(7));
+				list.add(bbs);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();			
+		}
+		return list; 
+	}
+	
+	public ArrayList<Bbs> getList_HOT(int pageNumber, String userID){
+		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 AND userID = ? ";
+		ArrayList<Bbs> list = new ArrayList<Bbs>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			pstmt.setString(2, userID);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Bbs bbs = new Bbs();
+				bbs.setBbsID(rs.getInt(1));
+				bbs.setBbsTitle(rs.getString(2));
+				bbs.setUserID(rs.getString(3));
+				bbs.setBbsDate(rs.getString(4));
+				bbs.setBbsContent(rs.getString(5));
+				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setBbsRecommend(rs.getInt(7));
+				list.add(bbs);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();			
+		}
+		return list; 
+	}
 
 }

@@ -42,8 +42,8 @@
 		if(request.getParameter("pageNumber") != null){
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		}
-		
-		
+		String writerID = bbs.getUserID();
+		session.setAttribute("writerID", writerID);
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -56,14 +56,27 @@
 	  		</button>
 	  		<a class="navbar-brand" href="main.jsp">JSP 게시판 웹 사이트</a>
 	  	</div>
+	  	<%
+	  		if(userID == null) {
+	  	%>
 	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  		<ul class="nav navbar-nav">
 	  			<li><a href="main.jsp">메인</a></li>
 	  			<li class="active"><a href="bbs.jsp">게시판</a></li>
 	  		</ul>
-	  		<%
+	  	<%
+	  		} else {
+	  	%>
+	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  		<ul class="nav navbar-nav">
+	  			<li><a href="main.jsp">메인</a></li>
+	  			<li class="active"><a href="bbs.jsp">전체 게시판</a></li>
+	  			<li><a href="mybbs.jsp">마이 게시판</a></li> <!-- 개인 게시판 Mybbs.jsp예정 -->
+	  			<li><a href="HOTbbs.jsp">핫 게시판</a></li> 
+	  		</ul>
+	  	<%
+	  		}
 	  			if(userID == null) {
-	  			
 	  		%>
 	  		<ul class="nav navbar-nav navbar-right">
 	  			<li class="dropdown">
@@ -84,9 +97,12 @@
 	  			<li class="dropdown">
 	  				<a href="#" class="dropdown-toggle"
 	  					data-toggle="dropdown" role="button" aria-haspopup="true"
-	  					aria-expanded="false">회원관리<span class="caret"></span></a>
+	  					aria-expanded="false"><%= userID %>님의 회원관리<span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
 	  					<li><a href="logoutAction.jsp">로그아웃</a></li>
+	  					<li><a href="privacy.jsp">개인정보</a></li>
+	  					<li><a href="friendlist.jsp">친구관리</a></li>
+	  					<li><a href="findFriend.jsp">친구검색</a>
 	  				</ul>
 	  			</li>
 	  		</ul>
@@ -97,6 +113,9 @@
 	</nav>
 	<!-- 게시글 쓰기 화면 -->
 	<div class="container">
+	<% 
+		writerID = bbs.getUserID();
+	%>
 		<div class="row">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd" >
 				<thead>
@@ -111,7 +130,7 @@
 					</tr>
 					<tr>
 						<td>작성자</td>
-						<td colspan="2"><%= bbs.getUserID() %></td>
+						<td colspan="2"><%= writerID %></td>
 					</tr>
 					<tr>
 						<td>작성일자</td>
@@ -127,17 +146,24 @@
 					</tr>
 				</tbody>
 			</table>
-			<a href="bbs.jsp" class="btn btn-primary">목록</a>
-			<a onClick="return alert('추천하였습니다.')" href="recommendAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">추천</a>
-			<a onClick="return alert('작성자 페이지로 이동했음 좋겠네')" href="moveAction.jsp?userID=<%= bbs.getUserID() %>" class="btn btn-primary">작성자 페이지 이동</a>
 			<%
 				if(userID != null && userID.equals(bbs.getUserID())) {
 			%>
+				<a href="bbs.jsp" class="btn btn-primary">목록</a>
+				<a onClick="return alert('추천하였습니다.')" href="recommendAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">추천</a>
 				<a href="update.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a>
 				<a onClick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">삭제</a>
 			<%
+				} else {
+			%>
+				<a href="bbs.jsp" class="btn btn-primary">목록</a>
+				<a onClick="return alert('추천하였습니다')" href="recommendAction.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">추천</a>
+				<a onClick="return alert('<%= writerID %>님의 페이지로 이동')" href="Userbbs.jsp?writerID=<%= writerID %>" class="btn btn-primary">작성자 페이지 이동</a>
+				<a href="addFriendAction.jsp?writerID=<%= writerID %>&userID=<%=userID %>&bbsID=<%= bbsID %>" class="btn btn-primary pull-right" onClick="alert('<%=writerID%>님을 친구추가했습니다')">친구추가</a>
+			<% 		
 				}
 			%>
+			<div>
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd;  margin-top:17px;" >
 				<thead>
 					<tr>
@@ -297,17 +323,16 @@
 					%>
 				</tbody>	
 			</table>
-			
-			
-			<div class="container">
-				<form method="post" action="replyWriteAction.jsp?bbsID=<%= bbsID %>">
-					<div style="margin-bottom: 10px;">
-					<textarea class="form-control" placeholder="댓글 내용" name="replyContent" maxlength="1024" style="height: 100px;"></textarea>
-					</div>
-					<div>
-						<input type="submit" class="btn btn-primary pull-right" value="댓글쓰기"  style="margin-bottom:20px;">
-					</div>
-				</form>
+				<div class="container">
+					<form method="post" action="replyWriteAction.jsp?bbsID=<%= bbsID %>">
+						<div style="margin-bottom: 10px;">
+						<textarea class="form-control" placeholder="댓글 내용" name="replyContent" maxlength="1024" style="height: 100px;"></textarea>
+						</div>
+						<div>
+							<input type="submit" class="btn btn-primary pull-right" value="댓글쓰기"  style="margin-bottom:20px;">
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

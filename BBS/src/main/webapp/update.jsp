@@ -68,6 +68,9 @@
 	  					aria-expanded="false">회원관리<span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
 	  					<li><a href="logoutAction.jsp">로그아웃</a></li>
+	  					<li><a href="privacy.jsp">개인정보</a></li>
+	  					<li><a href="#">친구관리</a></li>
+	  					<li><a href="search.jsp">친구검색</a>
 	  				</ul>
 	  			</li>
 	  		</ul>

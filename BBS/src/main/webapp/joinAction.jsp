@@ -10,6 +10,7 @@
 <jsp:setProperty name="user" property="userName" />
 <jsp:setProperty name="user" property="userGender" />
 <jsp:setProperty name="user" property="userEmail" />
+<jsp:setProperty name="user" property="userPhone" />
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
-		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null || user.getUserGender() == null|| user.getUserEmail() == null)
+		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null || user.getUserGender() == null|| user.getUserEmail() == null || user.getUserPhone() == null)
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

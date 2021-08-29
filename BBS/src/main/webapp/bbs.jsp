@@ -40,11 +40,28 @@
 	  		</button>
 	  		<a class="navbar-brand" href="main.jsp">JSP 게시판 웹 사이트</a>
 	  	</div>
+	  	<%
+	  			if(userID == null) {
+	  	%>
 	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	  		<ul class="nav navbar-nav">
 	  			<li><a href="main.jsp">메인</a></li>
-	  			<li class="active"><a href="bbs.jsp">게시판</a></li>
+	  			<li class="active"><a href="bbs.jsp">전체 게시판</a></li>
 	  		</ul>
+	  	<%
+	  		} else {
+	  	%>
+	  	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  		<ul class="nav navbar-nav">
+	  			<li><a href="main.jsp">메인</a></li>
+	  			<li class="active"><a href="bbs.jsp">전체 게시판</a></li>
+	  			<li><a href="mybbs.jsp">마이 게시판</a></li> <!-- 개인 게시판 Mybbs.jsp예정 -->
+	  			<li><a href="HOTbbs.jsp">핫 게시판</a></li> <!-- 개인 게시판 HOTbbs.jsp예정 -->
+	  		</ul>
+	  	
+	  	<%
+	  		}
+	  	%>
 	  		<%
 	  			if(userID == null) {
 	  			
@@ -68,9 +85,12 @@
 	  			<li class="dropdown">
 	  				<a href="#" class="dropdown-toggle"
 	  					data-toggle="dropdown" role="button" aria-haspopup="true"
-	  					aria-expanded="false">회원관리<span class="caret"></span></a>
+	  					aria-expanded="false"><%= userID %>님의 회원관리<span class="caret"></span></a>
 	  				<ul class="dropdown-menu">
 	  					<li><a href="logoutAction.jsp">로그아웃</a></li>
+	  					<li><a href="privacy.jsp">개인정보</a></li>
+	  					<li><a href="friendlist.jsp">친구관리</a></li>
+	  					<li><a href="findFriend.jsp">친구검색</a>
 	  				</ul>
 	  			</li>
 	  		</ul>

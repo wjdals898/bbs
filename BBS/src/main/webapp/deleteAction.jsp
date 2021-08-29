@@ -53,6 +53,7 @@
 				} else {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
+					script.println("session.invalidate();");
 					script.println("location.href = 'bbs.jsp'");
 					script.println("</script>");		
 					}
